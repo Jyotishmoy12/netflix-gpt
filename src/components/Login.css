@@ -1,0 +1,41 @@
+/* General styling for the form */
+.login-form {
+    width: 30%;
+    margin: auto;
+    right: 0;
+    left: 0;
+    top: 20%;
+    position: absolute;
+    padding: 1rem;
+    background-color: black;
+    color: white;
+    opacity: 0.8;
+    border-radius: 10px;
+  }
+  
+  /* Responsive styling for small screens */
+  @media (max-width: 768px) {
+    .login-form {
+      width: 80%;
+      top: 10%;
+    }
+  }
+  
+  /* Styling for input fields */
+  input {
+    padding: 1rem;
+    margin: 0.5rem 0;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+  }
+  
+  /* Darker shade of gray for input fields */
+  input[type="text"],
+  input[type="password"] {
+    background-color: rgba(128, 128, 128, 0.352); /* Darker shade of gray */
+    color: white;
+  }
+  
+  /* Add any additional styles you may need */
+  
