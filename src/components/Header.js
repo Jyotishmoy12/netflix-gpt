@@ -1,27 +1,62 @@
 import React from 'react';
-import {signOut } from "firebase/auth";
+import {onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from '../utils/firebase'
 import { useNavigate } from 'react-router-dom';
-import {useSelector } from 'react-redux'
+import {useSelector,useDispatch } from 'react-redux'
+import { useEffect } from 'react';
+import { addUser, removeUser } from '../utils/userSlice';
+import { LOGO, USER_ICON } from '../utils/constants';
 
 const Header = () => {
+  const dispatch=useDispatch()
   const navigate=useNavigate()
   const user=useSelector(store=>store.user)
   
-  const handleSignOut=()=>{
+const handleSignOut=()=>{
 signOut(auth).then(() => {
   // Sign-out successful.
-  navigate('/')
+ // navigate('/')
 }).catch((error) => {
   navigate('/error')
 });
   }
+// it is becuase header is present in every page and in routing also
+  useEffect(()=>{
+ const unsubscribe=onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+       const {uid, email, displayName, photoURL} = user;
+       // add them in store
+       dispatch(
+        addUser({
+        uid:uid, 
+        email:email, 
+        displayName:displayName, 
+        photoURL:photoURL
+      })
+      )
+      navigate("/browse")
+       
+        // ...
+      } else {
+        // User is signed out
+        dispatch(
+        removeUser())
+        navigate("/")
+        // ...
+      }
+    });
+
+    // unsubscribe when component unmounts
+  return ()=>unsubscribe();
+
+  }, []);
   return (
     <div className="absolute w-screen px-4 md:px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between items-center">
       <div className="flex items-center">
         <img
-          className="w-40 "
-          src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
+          className="sm:w-40 w-28"
+          src={LOGO}
           alt="logo"
         />
       </div>
@@ -32,10 +67,10 @@ signOut(auth).then(() => {
         <img
           alt="usericon"
           //src={user?.photoURL}
-          src="https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.jpg"
+          src={USER_ICON}
           className="w-12 h-12 p-2"
         />
-     <button  onClick={handleSignOut} className="bg-red-700 ml-4 text-white px-4 py-2 rounded-full hover:bg-red-600 focus:outline-none focus:ring focus:border-blue-300 transition duration-300 ease-in-out font-bold">
+     <button  onClick={handleSignOut} className="px-2 py-1 bg-red-600 text-white mr-4 rounded text-sm sm:font-bold ">
     Sign Out
   </button>
       </div>

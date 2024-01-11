@@ -5,9 +5,9 @@ import {createUserWithEmailAndPassword} from 'firebase/auth'
 import { signInWithEmailAndPassword,updateProfile} from "firebase/auth";
 
 import {auth} from '../utils/firebase'
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
+import { WALLPAPER } from '../utils/constants';
 
 
 const Login = () => {
@@ -19,7 +19,7 @@ const Login = () => {
 
   const password=useRef(null); 
   const name=useRef(null);
-  const navigate=useNavigate()
+  //const navigate=useNavigate()
   const dispatch=useDispatch()
   const handleButtonClick=()=>{
     // validate the form data 
@@ -57,7 +57,7 @@ const Login = () => {
       )
       
       // Profile updated!
-     navigate("/browse")
+    // navigate("/browse")
      // console.log(name.current.value)
     }).catch((error) => {
       setErrorMessage(error.Message)
@@ -83,7 +83,7 @@ const Login = () => {
     const user = userCredential.user;
     
     //console.log(user)
-    navigate("/browse")
+    //navigate("/browse")
     // ...
   })
   .catch((error) => {
@@ -104,7 +104,7 @@ const Login = () => {
       <Header />
       <div className="absolute w-full">
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/c38a2d52-138e-48a3-ab68-36787ece46b3/eeb03fc9-99c6-438e-824d-32917ce55783/IN-en-20240101-popsignuptwoweeks-perspective_alpha_website_small.jpg"
+          src={WALLPAPER}
           alt="logo"
           className="w-full"
         />
