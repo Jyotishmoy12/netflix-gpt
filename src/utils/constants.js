@@ -15,3 +15,23 @@ export const API_OPTIONS ={
         Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhOGU0ZDZlOTkyNDk2NWFkNGZiMDFmNjk4MWU3OTViNCIsInN1YiI6IjY1OWUyYjkyNzc3NmYwMDFhNGE1M2MzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.vPo8StpAqNajfmKKDA47H4hEIviKqmTMnM82ALZ-oeg"
     }
 }
+
+
+export const IMG_CDN_URL="https://image.tmdb.org/t/p/w780"
+
+export const SUPPORTED_LANGUAGES=[{
+    identifier: "en",
+    name:"English"
+},
+{
+    identifier: "hindi",
+    name:"Hindi"
+},
+{
+    identifier: "spanish",
+    name:"Spanish"
+},
+{
+    identifier: "assamese",
+    name:"Assamese"
+}]

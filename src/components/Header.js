@@ -6,11 +6,13 @@ import {useSelector,useDispatch } from 'react-redux'
 import { useEffect } from 'react';
 import { addUser, removeUser } from '../utils/userSlice';
 import { LOGO, USER_ICON } from '../utils/constants';
+import {toggleGptSearchView} from "../utils/gptSlice"
 
 const Header = () => {
   const dispatch=useDispatch()
   const navigate=useNavigate()
   const user=useSelector(store=>store.user)
+  const showGptSearch=useSelector((store)=>store.gpt.showGptSearch)
   
 const handleSignOut=()=>{
 signOut(auth).then(() => {
@@ -51,8 +53,13 @@ signOut(auth).then(() => {
   return ()=>unsubscribe();
 
   }, []);
+
+  const handleGptSearchClick=()=>{
+    // toggle Gpt Search
+    dispatch(toggleGptSearchView())
+  }
   return (
-    <div className="absolute w-screen px-4 md:px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between items-center">
+    <div className="absolute px-3 w-screen py-2 bg-gradient-to-b from-black z-10 flex items-center justify-between">
       <div className="flex items-center">
         <img
           className="sm:w-40 w-28"
@@ -64,6 +71,10 @@ signOut(auth).then(() => {
       {
       user &&
       <div className="flex items-center ">
+        
+        <button className='py-2 px-4 m-2 bg-purple-800 text-white rounded text-sm sm:font-bold w-30 h-9 hover:bg-purple-600'
+        onClick={handleGptSearchClick}
+        >{showGptSearch ? "HomePage":"GPT Search"}</button>
         <img
           alt="usericon"
           //src={user?.photoURL}
