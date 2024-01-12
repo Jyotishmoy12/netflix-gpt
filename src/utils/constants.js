@@ -35,3 +35,5 @@ export const SUPPORTED_LANGUAGES=[{
     identifier: "assamese",
     name:"Assamese"
 }]
+
+//export const OPEN_AI_KEY="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"
